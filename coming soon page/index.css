@@ -57,7 +57,7 @@ h1 {
 
 .cardCS {
   grid-column: 1 / -1;
-  height: 500px;
+  height: 600px;
   filter: drop-shadow(3px 3px 12px #333);
   margin-bottom: 100px;
 }
