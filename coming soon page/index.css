@@ -15,7 +15,7 @@ h1 {
   display: flex;
   justify-content: center;
   text-align: center;
-  font-size: 6em;
+  font-size: 5em;
   text-shadow: #333 3px 3px 12px;
   font-family: "Lobster", sans-serif;
 }
@@ -93,8 +93,8 @@ h1 {
   align-items: center;
   border-radius: 10px;
   padding-bottom: 50px;
-  animation-delay: 2s;
-  -webkit-animation-delay: 2s;
+  animation-delay: 3s;
+  -webkit-animation-delay: 3s;
 }
 
 .footer {
