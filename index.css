@@ -105,3 +105,8 @@ h1 {
   padding-left: 10px;
   margin: -5px;
 }
+
+@media screen and (max-width: 900px) {
+  .footer {
+    margin-top: 500px;
+  }
