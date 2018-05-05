@@ -16,6 +16,18 @@
     <style>
     </style>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $("#cn-ok").click(function(){
+          $("#cookie-notice").css("display", "none");
+          return false;   //to prevent href from redirecting to #
+        });
+      });
+    </script>
+
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117965750-1"></script>
     <script>
@@ -28,7 +40,10 @@
   </head>
 
   <body>
+
     <div class="container">
+
+      <div class="pretitle">Gin & Zano presentano:</div>
       <div class="title"><h1>Punk Rock Wedding<br />Tour Dates</h1></div>
 
       <div class="card">
@@ -116,6 +131,13 @@
       </div>
     </div>
 
+    <div class="banner" id="cookie-notice">
+      <span>
+        Questo sito utilizza cookies per assicurare la migliore esperienza di navigazione. <br />
+        Continuando, acconsenti all'utilizzo dei cookies.
+      </span>
+      <a id="cn-ok" href="#">OK</a>
+    </div>
 
   </body>
 
