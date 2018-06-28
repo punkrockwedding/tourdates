@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>#GinZano2018 su Instagram</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:image" content="img/instagram.jpg" />
+    <meta property="og:title" content="Punk Rock Wedding Live on Instagram" />
+    <meta property="og:description" content="Segui l'evento live da Instagram! Condividi le tue foto con l'hashtag #GinZano2018 per vederle anche su Punk Rock Wedding Live!" />
+
+    <link rel="stylesheet" href="live.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <script>
+
+      var instaHashtag = "GinZano2018"
+      var arrPhotoURL = [];
+      var instagramHTMLs = [];
+
+
+
+      function getPhotoIDs(htmlSource) {
+        arrPhotoURL = htmlSource.split(/"shortcode":"/)
+        //the first element is garbage
+        arrPhotoURL.shift();
+        for (i=0; i < arrPhotoURL.length; i++) {
+          arrPhotoURL[i] = arrPhotoURL[i].slice(0,11);
+        }
+        // here add a fix to remove duplicates in array
+        arrPhotoURL = eliminateDuplicates(arrPhotoURL);
+        console.log(arrPhotoURL);
+      }
+
+      function eliminateDuplicates(myArray) {
+        var newArray = [];
+        for (i=0; i < myArray.length; i++) {
+          var thisElement = myArray[i];
+          console.log("evaluating element: " + thisElement + ", index: " + i);
+          console.log("searching..." + myArray.indexOf(thisElement, 0, i-1));
+          if (myArray.indexOf(thisElement, 0) >= i) {
+            newArray.push(thisElement);
+          }
+        }
+        return newArray;
+      }
+
+      $(document).ready(function(){
+
+        //getting the html of a page. allorigins.me is a CORS workaround
+        var instagramUrl = "https://www.instagram.com/explore/tags/" + instaHashtag + "/";
+        var photoURL;
+
+        $.getJSON('https://allorigins.me/get?url=' + encodeURIComponent(instagramUrl) + '&callback=?', function(instagramSource) {
+          getPhotoIDs(instagramSource.contents);
+        })
+          .done(function() {
+            for (i=0; i<arrPhotoURL.length; i++) {
+              photoURL = "https://api.instagram.com/oembed?url=https://www.instagram.com/p/" + arrPhotoURL[i] + "&maxwidth=500&hidecaption=true";
+
+              $.getJSON(photoURL)
+                .done(function(data) {
+                  $("<div/>", {
+                    html: data.html
+                  }).appendTo("#instagram-placeholder");
+                });
+            }
+          });
+      });
+
+      $(window).on("load", function() {
+        $("#coverScreen").hide();
+      });
+    </script>
+
+
+    <style>
+    </style>
+  </head>
+
+  <body>
+    <div id="coverScreen"><i class = "fas fa-spinner"></i></div>
+    <a href="index.html"><i class="fas fa-home"></i></a>
+    <h1>#GinZano2018 su&nbsp<i class="fab fa-instagram"></i></h1>
+    <div id="instagram-placeholder"></div>
+
+    <footer class="footer">
+      <img src="img/band.png">
+      <!-- <p>Made by Marco Vidonis, 2018</p> -->
+    </footer>
+
+  </body>
+
+
+</html>
